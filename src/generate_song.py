@@ -2,8 +2,10 @@ from transformers import AutoProcessor, MusicgenForConditionalGeneration
 import scipy
 
 MODEL = 'facebook/musicgen-small'
-def generate(prompt):
-    print(f'generating song using prompt: {prompt}')
+def generate_song(prompt):
+    print("")
+    print(f'Generating song using prompt: {prompt}')
+    print("")
     processor = AutoProcessor.from_pretrained(MODEL)
     model = MusicgenForConditionalGeneration.from_pretrained(MODEL)
 
