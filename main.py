@@ -1,5 +1,5 @@
 from external_apis.spotify import SpotifyAPI
-from src import prompt
+from src import prompt, generate
 
 spotify = SpotifyAPI()
 
@@ -22,6 +22,5 @@ genres = song_data[2]
 
 prompt = prompt.spotify_track_data_to_text_prompt(track_data, audio_features, genres)
 
-print("")
-print(f"Generating song with prompt: {prompt}")
-print("")
+generate.generate(prompt)
+
