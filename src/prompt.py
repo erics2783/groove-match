@@ -17,7 +17,8 @@ def spotify_track_data_to_text_prompt(spotify_track_data):
         " Base off of the most recognizable 15 seconds of the song." + 
         " Describe instrumentation, genre and time period, if applicable." +
         " If you don't know the song, respond with exactly 'I don\'t know that song'." +
-        " Respond with only the prompt, no labels or extra info. No vocal or lyric instructions.",
+        " Respond with only the prompt, no labels or extra info. No vocal or lyric instructions." +
+        " 250 characters max.",
         f"{track_name} {artist}",
     )
 
