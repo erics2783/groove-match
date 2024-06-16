@@ -5,7 +5,7 @@ import time
 
 SPOTIFY_API_URL = 'https://api.spotify.com/v1'
 
-class SpotifyAPI:
+class SpotifyApi:
     def __init__(self):
         self.__token = { 'access_token': None, 'expires_at': None }
 
