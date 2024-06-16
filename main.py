@@ -1,7 +1,7 @@
-from external_apis.spotify import SpotifyAPI
-from src import prompt, generate
+from external_apis.spotify_api import SpotifyApi
+from src import prompt, generate_song
 
-spotify = SpotifyAPI()
+spotify = SpotifyApi()
 
 search_results = spotify.search("Never gonna give you up Rick Astley")
 
@@ -11,16 +11,12 @@ if len(search_results) == 0:
 
 song = search_results[0]
 
-song_data = spotify.get_song_data(song["id"])
-if song_data is None:
-    print("No song data found")
+track_data = spotify.get_track_data(song["id"])
+if track_data is None:
+    print("No track data found")
     exit()
 
-track_data = song_data[0]
-audio_features = song_data[1]
-genres = song_data[2]
+prompt = prompt.spotify_track_data_to_text_prompt(track_data)
 
-prompt = prompt.spotify_track_data_to_text_prompt(track_data, audio_features, genres)
-
-generate.generate(prompt)
+generate_song.generate_song(prompt)
 
