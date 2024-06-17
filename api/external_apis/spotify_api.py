@@ -3,28 +3,24 @@ import base64
 import os
 import time
 
-SPOTIFY_API_URL = 'https://api.spotify.com/v1'
-
 class SpotifyApi:
-    def __init__(self):
+    def __init__(self, url, client_id, client_secret):
         self.__token = { 'access_token': None, 'expires_at': None }
+        self.__url = url
+        self.__client_id = client_id
+        self.__client_secret = client_secret
 
-    def search(self, query):
-        search_url = f'{SPOTIFY_API_URL}/search'
+    def search(self, query, limit = 10):
+        search_url = f'{self.__url}/search'
         search_params = {
             'q': query,
-            'type': 'album,artist,track',
-            'limit': 10
+            'type': 'track',
+            'limit': limit
         }
         search_response = requests.get(search_url, headers=self.__get_spotify_headers(), params=search_params)
         search_data = search_response.json()
 
-        return list(map(lambda track: {
-            'id': track['id'],
-            'name': track['name'],
-            'artist': track['artists'][0]['name'],
-            'album': track['album']['name'],
-        }, search_data['tracks']['items']))
+        return search_data
 
 
     def get_song_data(self, track_id):
@@ -37,17 +33,17 @@ class SpotifyApi:
         return track_data, audio_features, genres
 
     def get_track_data(self, track_id):
-        track_url = f'{SPOTIFY_API_URL}/tracks/{track_id}'
+        track_url = f'{self.__url}/tracks/{track_id}'
         track_response = requests.get(track_url, headers=self.__get_spotify_headers())
         return track_response.json()
 
     def get_audio_features(self, track_id):
-        audio_features_url = f'{SPOTIFY_API_URL}/audio-features/{track_id}'
+        audio_features_url = f'{self.__url}/audio-features/{track_id}'
         audio_features_response = requests.get(audio_features_url, headers=self.__get_spotify_headers())
         return audio_features_response.json()
 
     def get_artist_data(self, artist_id):
-        artist_url = f'{SPOTIFY_API_URL}/artists/{artist_id}'
+        artist_url = f'{self.__url}/artists/{artist_id}'
         artist_response = requests.get(artist_url, headers=self.__get_spotify_headers())
         return artist_response.json()
 
@@ -62,8 +58,8 @@ class SpotifyApi:
         if self.__token['access_token'] is not None and self.__token['expires_at'] > time.time() + 10:
             return self.__token['access_token']
 
-        client_id = os.getenv('SPOTIFY_CLIENT_ID')
-        client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+        client_id = self.__client_id
+        client_secret = self.__client_secret
 
         if not client_id or not client_secret:
             raise Exception('SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET environment variables must be set')
