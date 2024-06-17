@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from song_search.views import SongSearchView
+from song_generator.views import SongGeneratorView
 
 from user import views
 
@@ -28,5 +29,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('song-search/', SongSearchView.as_view()),
+    path('song-generator/', SongGeneratorView.as_view()),
     path('admin/', admin.site.urls),
 ]
