@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
+from song_search.views import SongSearchView
 
 from user import views
 
@@ -26,5 +27,6 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('song-search/', SongSearchView.as_view()),
     path('admin/', admin.site.urls),
 ]

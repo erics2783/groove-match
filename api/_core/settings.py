@@ -128,3 +128,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+SPOTIFY = {
+    'URL': 'https://api.spotify.com/v1',
+    'CLIENT_ID': os.environ['SPOTIFY_CLIENT_ID'],
+    'CLIENT_SECRET': os.environ['SPOTIFY_CLIENT_SECRET'],
+}
