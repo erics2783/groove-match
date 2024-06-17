@@ -134,3 +134,7 @@ SPOTIFY = {
     'CLIENT_ID': os.environ['SPOTIFY_CLIENT_ID'],
     'CLIENT_SECRET': os.environ['SPOTIFY_CLIENT_SECRET'],
 }
+
+OPENAI = {
+    'API_KEY': os.environ['OPENAI_API_KEY'],
+}

@@ -2,13 +2,12 @@ import os
 import openai
 from openai import OpenAI
 
-# Initialize the OpenAI API key
-openai.api_key = os.getenv('OPENAI_API_KEY')
-
 class OpenAiApi:
+    def __init__(self, api_key):
+        self.__api_key = api_key
 
     def generate_response(self, system_prompt, user_prompt, model="gpt-3.5-turbo"):
-        client = OpenAI()
+        client = OpenAI(api_key=self.__api_key)
 
         completion = client.chat.completions.create(
             model=model,
